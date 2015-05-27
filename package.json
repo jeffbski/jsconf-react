@@ -52,8 +52,11 @@
   },
   "dependencies": {
     "axios": "^0.5.4",
+    "body": "^5.0.0",
     "core-js": "^0.9.9",
-    "react": "^0.13.3"
+    "immutable": "^3.7.3",
+    "react": "^0.13.3",
+    "shortid": "^2.2.2"
   },
   "keywords": []
 }
