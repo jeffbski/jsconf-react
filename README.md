@@ -1,12 +1,8 @@
-This is a **minimal React.js boilerplate with an auto build environment** which you can fork and clone to easily setup your own projects.
+# JSConf 2015 React.js Training Workshop Code
 
-Tip: Using [git-clone-init](https://github.com/jeffbski/git-clone-init) makes this very simple.
+This is the starter code for the Introduction / Getting started with React.js training workshop at JSConf 2015
 
-`git-clone-init https://github.com/jeffbski/base-react-min.git myProjectName`
-
-TODO: Replace this boilerplate with your project description
-
-Features:
+This boilerplate code has these features:
 
  - **React.js JSX example which fetches from REST source and renders**
  - **simple build and auto rebuild** (watch) using npm run scripts
@@ -21,7 +17,7 @@ Features:
  - **cleancss** for css minification
  - **axios** for promise based HTTP client
 
-Note: **Windows users** - use https://github.com/jeffbski/base-react-min-win.git instead
+Note: **Windows users** - use https://github.com/jeffbski/jsconf-react-win instead
 
 Structure:
 
@@ -31,12 +27,12 @@ Structure:
  - src/browser.jsx - React.js JSX code which fetches REST data and renders into the main HTML
  - src/util/polyfill.js - Import any core-js or other polyfills here
  - assets/site.less - CSS styles used by site, edit or import into
- - bs-config.js - browser-sync config, set browser to launch
+ - bs-config.js - browser-sync config, set browser to launch, middleware implementing a REST api used for the app
  - dist/ - contains compiled and minified css and js
 
 Notes:
 
- - My default browser for browser-sync is `Google Chrome Canary`, if you want to use a different browser like `Google Chrome` or `Mozilla Firefox` edit `bs-config.js`
+ - My default browser for browser-sync is `Google Chrome`, if you want to use a different browser like `Google Chrome Canary` or `Mozilla Firefox` edit `bs-config.js`
 
 
 ## Installation
@@ -48,8 +44,6 @@ npm install ## install dependent node modules
 ```
 
 ## Usage
-
-TODO: update with your usage
 
 Primary use - auto build and reload browser
 ```bash
@@ -68,21 +62,10 @@ node run prod-build # sets NODE_ENV=production then builds
 ```
 
 
-## Goals
-
-TODO: Add your goals here
-
-## Why
-
-TODO: Add your description of why you created this
-
-## Get involved
-
-If you have input or ideas or would like to get involved, you may:
+## More info
 
  - contact me via twitter @jeffbski  - <http://twitter.com/jeffbski>
- - open an issue on github to begin a discussion - <https://github.com/jeffbski/jsconf-react/issues>
- - fork the repo and send a pull request (ideally with tests) - <https://github.com/jeffbski/jsconf-react>
+ - Register for my membership list on http://codewinds.com/ to get notified about my upcoming React.js video training, podcast, and tutorials.
 
 ## License
 
