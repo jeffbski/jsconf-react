@@ -56,7 +56,8 @@
     "core-js": "^0.9.9",
     "immutable": "^3.7.3",
     "react": "^0.13.3",
-    "shortid": "^2.2.2"
+    "shortid": "^2.2.2",
+    "shuffle-array": "^0.1.0"
   },
   "keywords": []
 }
