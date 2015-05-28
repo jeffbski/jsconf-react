@@ -2,10 +2,9 @@
 
 import './util/polyfill'; // first import polyfills
 import React from 'react';
-import Result from './result';
 import httpClient from 'axios';
-import shuffleArray from 'shuffle-array';
-import getFormData from './util/get-form-data';
+import Poll from './poll';
+import Results from './results';
 
 /*
   Example which fetches a list of items from a REST api
@@ -13,78 +12,38 @@ import getFormData from './util/get-form-data';
   renders the error message if one occurs.
  */
 
+let isAdmin = (window.location.pathname === '/admin.html');
+
 class App extends React.Component {
-  constructor(...args) {
-    super(...args);
-    this.state = {
-      polls: shuffleArray(this.props.polls),
-      result: null
-    };
-  }
-
   render() {
-    const result = this.state.result;
-    const firstPoll = this.state.polls[0];
-
-    // once we have a poll result display it
-    if (result) {
-      const resultAndPoll = {
-        id: firstPoll.id,
-        question: firstPoll.question,
-        choices: firstPoll.choices,
-        votes: result.votes
-      };
-      return (
-        <div>
-          <Result result={resultAndPoll} />
-          <button onClick={this.nextPoll.bind(this)}>Next survey</button>
-        </div>
-      );
-    }
-
-    // else if no poll, display message
-    if (!firstPoll) {
-      return (
-        <div>No more polls</div>
-      );
-    }
-
-    // otherwise display first poll
+    const polls = this.props.polls;
+    const pollOrResults = (isAdmin) ?
+      <Results polls={polls} /> :
+      <Poll polls={polls} />;
     return (
-      <form className="poll" onSubmit={this.vote.bind(this)}>
-        <label>{firstPoll.question}</label>
-        { firstPoll.choices.map((x, idx) => (
-          <label key={idx}>
-          <input type="radio"
-          name={firstPoll.id}
-          value={idx}
-          required="true" />
-          {x}
-          </label>
-         )) }
-          <button type="submit">Vote</button>
-      </form>
+      <div className="pollDiv">
+        { pollOrResults }
+      </div>
     );
   }
-
-  vote(e) {
-    e.preventDefault();
-    const formData = getFormData(e.target);
-    const id = Object.keys(formData)[0];
-    httpClient({ method: 'post', url: `/polls/${id}`, data: formData })
-                              .then(resp => {
-                                this.setState({ result: resp.data });
-                              });
-  }
-
-  nextPoll(e) {
-    this.setState({
-      result: null,
-      polls: this.state.polls.slice(1)
-    });
-  }
-
 }
+
+function fetchDataAndRender() {
+  fetchData()
+    .then(resp => render(resp.data))
+    .catch(err => {
+      console.error(err);
+      renderError(err);
+    });
+}
+
+function fetchData() {
+  const url = (isAdmin) ?
+              '/admin/polls' :
+              '/polls';
+  return httpClient({ url: url });
+}
+
 
 const appContainerDiv = document.querySelector('#appContainer');
 
@@ -99,17 +58,7 @@ function renderError(err) {
   React.render(<div>{errMsg}</div>, appContainerDiv);
 }
 
-function fetchData() {
-  return httpClient({ url: '/polls' });
-}
-
-function fetchDataAndRender() {
-  fetchData()
-    .then(resp => render(resp.data))
-    .catch(err => {
-      console.error(err);
-      renderError(err);
-    });
-}
 
 fetchDataAndRender();
+
+if (isAdmin) { setInterval(fetchDataAndRender, 1000); }
