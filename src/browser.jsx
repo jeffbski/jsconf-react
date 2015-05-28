@@ -37,6 +37,7 @@ class App extends React.Component {
       return (
         <div>
           <Result result={resultAndPoll} />
+          <button onClick={this.nextPoll.bind(this)}>Next survey</button>
         </div>
       );
     }
@@ -75,6 +76,14 @@ class App extends React.Component {
                                 this.setState({ result: resp.data });
                               });
   }
+
+  nextPoll(e) {
+    this.setState({
+      result: null,
+      polls: this.state.polls.slice(1)
+    });
+  }
+
 }
 
 const appContainerDiv = document.querySelector('#appContainer');
