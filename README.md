@@ -47,18 +47,18 @@ npm install ## install dependent node modules
 
 Primary use - auto build and reload browser
 ```bash
-node run watch # build and watch, auto recompile and load changes
+npm run watch # build and watch, auto recompile and load changes
 # use control-c to exit the autobuild watch
 ```
 
 Build only
 ```bash
-node run build # build only
+npm run build # build only
 ```
 
 Build for Production
 ```bash
-node run prod-build # sets NODE_ENV=production then builds
+npm run prod-build # sets NODE_ENV=production then builds
 ```
 
 
