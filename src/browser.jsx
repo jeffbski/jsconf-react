@@ -3,6 +3,8 @@
 import './util/polyfill'; // first import polyfills
 import React from 'react';
 import httpClient from 'axios';
+import Poll from './poll';
+import Results from './results';
 
 /*
   Example which fetches a list of items from a REST api
@@ -10,36 +12,20 @@ import httpClient from 'axios';
   renders the error message if one occurs.
  */
 
+let isAdmin = (window.location.pathname === '/admin.html');
+
 class App extends React.Component {
   render() {
-    const items = this.props.items;
+    const polls = this.props.polls;
+    const pollOrResults = (isAdmin) ?
+      <Results polls={polls} /> :
+      <Poll polls={polls} />;
     return (
-      <div>
-        <ul>
-          { items.map(item =>
-            <li key={item.id}>{item.name}</li>) }
-        </ul>
-        <div className="devHelp">(REST data fetched and rendered in src/browser.jsx)</div>
+      <div className="pollDiv">
+        { pollOrResults }
       </div>
     );
   }
-}
-
-const appContainerDiv = document.querySelector('#appContainer');
-
-function render(data) {
-  React.render(<App items={data.items} />, appContainerDiv);
-}
-
-function renderError(err) {
-  const errMsg = (err.statusText) ?
-                 `Error: ${err.data} - ${err.statusText}` :
-                 err.toString();
-  React.render(<div>{errMsg}</div>, appContainerDiv);
-}
-
-function fetchData() {
-  return httpClient({ url: '/fake-api.json' });
 }
 
 function fetchDataAndRender() {
@@ -51,4 +37,28 @@ function fetchDataAndRender() {
     });
 }
 
+function fetchData() {
+  const url = (isAdmin) ?
+              '/admin/polls' :
+              '/polls';
+  return httpClient({ url: url });
+}
+
+
+const appContainerDiv = document.querySelector('#appContainer');
+
+function render(data) {
+  React.render(<App polls={data.polls} />, appContainerDiv);
+}
+
+function renderError(err) {
+  const errMsg = (err.statusText) ?
+                 `Error: ${err.data} - ${err.statusText}` :
+                 err.toString();
+  React.render(<div>{errMsg}</div>, appContainerDiv);
+}
+
+
 fetchDataAndRender();
+
+if (isAdmin) { setInterval(fetchDataAndRender, 1000); }

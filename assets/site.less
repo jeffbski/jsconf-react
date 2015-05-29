@@ -15,7 +15,31 @@ a {
 }
 a:hover { background-color: lightblue; }
 
+input, textarea, button {
+  font-size: 18px;
+  border-radius: 6px;
+}
+
+button {
+  margin-top: 10px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
 .devHelp {
   color: grey;
   font-size: @extraSmallFontSize;
+}
+
+.createPoll {
+  display: flex;
+  flex-flow: column;
+  input[name="question"] { width: 300px; }
+  button { width: 60px; }
+}
+
+.poll {
+  display: flex;
+  flex-flow: column;
+  button { width: 60px; }
 }
