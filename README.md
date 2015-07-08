@@ -30,6 +30,37 @@ Structure:
  - bs-config.js - browser-sync config, set browser to launch, middleware implementing a REST api used for the app
  - dist/ - contains compiled and minified css and js
 
+Branches:
+
+Change branches to iterate through implementing features for the solution.
+
+`git checkout stepX # iterate through solution`
+
+ - master / step0
+   - initial starting boilerplate
+   - working autobuild react.js / babel dev environment
+ - step1
+   - fetch /pools
+   - display all questions
+   - shuffle-array
+   - display first shuffled poll w/choices
+ - step2
+   - Display poll as form
+   - Post { YOUR_ID: IDX } to `/polls/${id}`
+   - that Returns poll result, display poll result
+   - Use PieChart from react-d3-components to display
+ - step3
+   - Use state to display first poll
+   - Use state to hold shuffled polls
+   - Add next survey button which shifts poll
+   - setState trigger update to show new poll
+ - step4 / final
+   - Add admin.html
+   - Add conditional logic location.pathname = '/admin.html'
+   - fetch /admin/polls, display all
+   - Add question form
+   - post { question: 'What', choices: [ 'Foo', 'Bar'] } to /polls
+
 Notes:
 
  - My default browser for browser-sync is `Google Chrome`, if you want to use a different browser like `Google Chrome Canary` or `Mozilla Firefox` edit `bs-config.js`
